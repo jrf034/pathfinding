@@ -1,0 +1,36 @@
+<html>
+<head>
+	<link rel="stylesheet" href="./pacmanCSS.css">
+<body>
+	<canvas id="canvas" width="720" height="720">
+	<canvas>Your browser doesn't support canvas</canvas>
+	</canvas>
+	<div class="entry">
+		<form>
+			Start Y (between 1 and 29):
+			<input type="number" id="formStartX" name="quantity" min="1" max="29">
+		</form>
+		<form>
+			Start X (between 1 and 29):
+			<input type="number" id="formStartY" name="quantity" min="1" max="29">
+		</form>
+		<form>
+			End Y (between 1 and 29):
+			<input type="number" id="formEndX" name="quantity" min="1" max="29">
+		</form>
+		<form>
+			End X (between 1 and 29):
+			<input type="number" id="formEndY" name="quantity" min="1" max="29">
+		</form>
+		</p>
+		<button type="button" id="Play" onclick="findPath()">Submit</button>
+	</div>
+</body>
+	<script src="mazeDrawer.js"></script>
+	<script src="pacmanGhosts.js"></script>
+	<script src="pacmanDrawer.js"></script>
+	<script src="pathfinding.js"></script>
+</head>
+</html>
+
+<!-- pw for stars thing XjhIkl$#28cD -->
