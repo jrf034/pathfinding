@@ -111,7 +111,13 @@ function drawMaze(ctx){
 				ctx.fillRect(j*dim,i*dim,dim,dim);
 				ctx.fill();
 				ctx.closePath();
-			} else {
+			}  else if (index == 95) {
+				ctx.beginPath();
+				ctx.fillStyle = "#FF00FF";
+				ctx.fillRect(j*dim,i*dim,dim,dim);
+				ctx.fill();
+				ctx.closePath();
+			}  else {
 				ctx.beginPath();
 				ctx.fillStyle = "#000000";
 				ctx.fillRect(j*dim,i*dim,dim,dim);

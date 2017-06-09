@@ -86,7 +86,12 @@ function findPath(){
 		}
 	}
 }
+/*
+YOU ARE NOT UPDATING G, IT ALWAYS KEEPS G AT ONE AND COMPLETELY MESSES UP THE PATHFINDING
+FIX THAT AND YOU ARE DONE.
 
+WRITING THIS BECAUSE I KNOW I HAVE BAD MEMORY
+*/
 function AStar(start, goal) {
 	var evaluatedSet = [];
 	var openSet = [start];
@@ -97,15 +102,15 @@ function AStar(start, goal) {
 		var q = openSet.splice(minIndex, 1)[0];
 
 		var comp = nodeCompare(q, goal);
+		for (var k = 0; k < evaluatedSet.length; k++) {
+			maze[evaluatedSet[k].x][evaluatedSet[k].y] = 95;
+			drawMaze(ctx);
+		}
+		for (var k = 0; k < openSet.length; k++) {
+			maze[openSet[k].x][openSet[k].y] = 94;
+			drawMaze(ctx);
+		}
 		if (comp) {
-			for (var k = 0; k < evaluatedSet.length; k++) {
-				maze[evaluatedSet[k].x][evaluatedSet[k].y] = 94;
-				drawMaze(ctx);
-			}
-			for (var k = 0; k < openSet.length; k++) {
-				maze[openSet[k].x][openSet[k].y] = 94;
-				drawMaze(ctx);
-			}
 			return reconstructPath(q);
 		}
 
