@@ -38,7 +38,7 @@ function myFunction() {
     document.getElementById("demo").innerHTML = text;
 }
 
-function findPath(startX startY, endX, endY) {
+function findPath(startX, startY, endX, endY) {
 	var initial = new node(null, startX, startY, 0, 0.0, 0.0);
 	var ending = new node(null, endX, endY, 0, 0.0, 0.0);
 
@@ -52,7 +52,6 @@ function findPath(startX startY, endX, endY) {
 /*
 YOU ARE NOT UPDATING G, IT ALWAYS KEEPS G AT ONE AND COMPLETELY MESSES UP THE PATHFINDING
 FIX THAT AND YOU ARE DONE.
-
 WRITING THIS BECAUSE I KNOW I HAVE BAD MEMORY
 */
 function AStar(start, goal) {
