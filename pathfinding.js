@@ -38,52 +38,15 @@ function myFunction() {
     document.getElementById("demo").innerHTML = text;
 }
 
-function findPath(){
-	var startX = parseInt(document.getElementById("formStartX").value, 10);
-	var startY = parseInt(document.getElementById("formStartY").value, 10);
-	var endX = parseInt(document.getElementById("formEndX").value, 10);
-	var endY = parseInt(document.getElementById("formEndY").value, 10);
-
+function findPath(startX startY, endX, endY) {
 	var initial = new node(null, startX, startY, 0, 0.0, 0.0);
 	var ending = new node(null, endX, endY, 0, 0.0, 0.0);
-
-	maze = [
-	[ 3,  1,  1,  1,  1,  1,  1,  1,  1,  7,  1,  1,  1,  1,  1,  1,  1,  1,  4], 
-	[ 2, 90, 90, 90, 90, 90, 90, 90, 90,  2, 90, 90, 90, 90, 90, 90, 90, 90,  2], 
-	[ 2, 98, 13, 14, 90, 13,  1, 14, 90, 12, 90, 13,  1, 14, 90, 13, 14, 98,  2], 
-	[ 2, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90,  2], 
-	[ 2, 90, 13, 14, 90, 11, 90, 13,  1,  7,  1, 14, 90, 11, 90, 13, 14, 90,  2], 
-	[ 2, 90, 90, 90, 90,  2, 90, 90, 90,  2, 90, 90, 90,  2, 90, 90, 90, 90,  2], 
-	[ 5,  1,  1,  4, 90,  9,  1, 14, 90, 12, 90, 13, 1,  10, 90,  3,  1,  1,  6], 
-	[90, 90, 90,  2, 90,  2, 90, 90, 90, 90, 90, 90, 90,  2, 90,  2, 90, 90, 90], 
-	[ 1,  1,  1,  6, 90, 12, 90,  3, 14, 90, 13,  4, 90, 12, 90,  5,  1,  1,  1], 
-	[70, 90, 90, 90, 90, 90, 90,  2, 90, 90, 90,  2, 90, 90, 90, 90, 90, 90, 70], 
-	[ 1,  1,  1,  4, 90, 11, 90,  5,  1,  1,  1,  6, 90, 11, 90,  3,  1,  1,  1], 
-	[90, 90, 90,  2, 90,  2, 90, 90, 90, 90, 90, 90, 90,  2, 90,  2, 90, 90, 90], 
-	[ 3,  1,  1,  6, 90, 12, 90, 13,  1,  7,  1, 14, 90, 12, 90,  5,  1,  1,  4], 
-	[ 2, 90, 90, 90, 90, 90, 90, 90, 90,  2, 90, 90, 90, 90, 90, 90, 90, 90,  2], 
-	[ 2, 90, 13,  4, 90, 13,  1, 14, 90, 12, 90, 13,  1, 14, 90,  3, 14, 90,  2], 
-	[ 2, 98, 90,  2, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90,  2, 90, 98,  2], 
-	[ 9, 14, 90, 12, 90, 11, 90, 13,  1,  7,  1, 14, 90, 11, 90, 12, 90, 13, 10], 
-	[ 2, 90, 90, 90, 90,  2, 90, 90, 90,  2, 90, 90, 90,  2, 90, 90, 90, 90,  2], 
-	[ 2, 90, 13,  1,  1,  8,  1, 14, 90, 12, 90, 13,  1,  8,  1,  1, 14, 90,  2], 
-	[ 2, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90,  2], 
-	[ 5,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  6], 
-];
 
 	var results = AStar(initial, ending);
 
 	for (var i = 0; i < results.length; i++) {
 		var changeX = results[i].x;
 		var changeY = results[i].y;
-
-		if (i == 0){
-			maze[changeX][changeY] = 91;
-		} else if (i == results.length - 1) {
-			maze[changeX][changeY] = 92;
-		} else {
-			maze[changeX][changeY] = 93;
-		}
 	}
 }
 /*
@@ -102,14 +65,7 @@ function AStar(start, goal) {
 		var q = openSet.splice(minIndex, 1)[0];
 
 		var comp = nodeCompare(q, goal);
-		for (var k = 0; k < evaluatedSet.length; k++) {
-			maze[evaluatedSet[k].x][evaluatedSet[k].y] = 95;
-			drawMaze(ctx);
-		}
-		for (var k = 0; k < openSet.length; k++) {
-			maze[openSet[k].x][openSet[k].y] = 94;
-			drawMaze(ctx);
-		}
+
 		if (comp) {
 			return reconstructPath(q);
 		}
@@ -117,7 +73,7 @@ function AStar(start, goal) {
 		var freeSpots = findFree(q);
 		for (var i = 0; i < freeSpots.length; i++) {
 			if (freeSpots[i]) { //only if the direction is available
-				var parDist = 1;
+				var parDist = q.g + 1;
 				var goalDist = manhattanDistance(q, goal);
 				var fScore = parDist + goalDist;
 				var newX =  q.x + ghostDirection[dir[i]].x;
